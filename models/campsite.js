@@ -1,6 +1,24 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const commentSchema = new Schema({
+  rating: {
+    type: Number,
+    min: 1,
+    max: 5,
+    required: true
+  },
+  text: {
+    type: String,
+    required: true
+  },
+  author: {
+    type: String,
+    required: true
+  }
+}, {
+  timestamps: true
+});
 // two parameters
 // first is an object with definition of schema
 // second optional argument, used for setting config options
@@ -15,7 +33,8 @@ const campsiteSchema = new Schema({
   description: {
     type: String,
     required: true
-  }
+  },
+  comments: [commentSchema]
 }, {
   timestamps: true
 });

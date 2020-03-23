@@ -18,10 +18,24 @@ connect.then(() => {
   })
     .then(campsite => {
       console.log(campsite);
-      return Campsite.find();
+      Campsite
+      return Campsite.findByIdAndUpdate(campsite._id, {
+        $set: { description: 'updated test document' }
+      }, {
+        new: true
+      });
     })
-    .then(campsites => {
-      console.log(campsites);
+    .then(campsite => {
+      console.log(campsite);
+      campsite.comments.push({
+        rating: 5,
+        text: 'What a magnificent view!',
+        author: 'Tinus Lorvaldes'
+      });
+      return campsite.save();
+    })
+    .then(campsite => {
+      console.log(campsite);
       return Campsite.deleteMany();
     })
     .then(() => {
